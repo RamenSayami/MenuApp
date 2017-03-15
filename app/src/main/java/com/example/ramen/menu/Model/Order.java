@@ -1,40 +1,52 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.example.ramen.menu.Model;
 
+import java.io.Serializable;
+
 /**
- * Created by ramen on 3/3/17.
+ *
+ * @author shreejal
  */
+public class Order implements Serializable {
 
-public class Order {
-
-    public enum OrderStatus {
-        ORDER_IN, CANCELLED,UNCOOKED, COOKING, COOKED, DELIVERED, ONBILL, PAID
-    }
-
-    //private String SessionId;
-    private static Integer TableNo;  //Table number made static because once the user
-                                    // enters table number it will not change fot the entire session
+    private static final long serialVersionUID = 1L;
+    private Integer TableNo;
     private String DishName;
     private Integer Quantity;
     private OrderStatus Status;
     private Integer UnitPrice;
 
-    public Order() {
+    public Order(){
+
     }
-
-    public Order(String DishName, Integer Quantity, OrderStatus Status, Integer UnitPrice) {
-
+    public Order(Integer TableNo, String DishName, Integer Quantity,
+                 OrderStatus Status, Integer UnitPrice) {
+        this.TableNo = TableNo;
         this.DishName = DishName;
         this.Quantity = Quantity;
         this.Status = Status;
         this.UnitPrice = UnitPrice;
     }
 
-    public static Integer  getTableNo() {
+    public Order(Integer TableNo, String DishName, Integer Quantity,
+                 String Status, Integer UnitPrice) {
+        this.TableNo = TableNo;
+        this.DishName = DishName;
+        this.Quantity = Quantity;
+        this.Status = castObject(Status);
+        this.UnitPrice = UnitPrice;
+    }
+
+    public Integer getTableNo() {
         return TableNo;
     }
 
-    public void setTableNo(Integer TableNo) {
-        this.TableNo = TableNo;
+    public void setTableNo(Integer tbl) {
+        TableNo = tbl;
     }
 
     public String getDishName() {
@@ -57,6 +69,10 @@ public class Order {
         return Status;
     }
 
+    public String getStatusString() {
+        return Status.toString();
+    }
+
     public void setStatus(OrderStatus Status) {
         this.Status = Status;
     }
@@ -69,5 +85,38 @@ public class Order {
         this.UnitPrice = UnitPrice;
     }
 
+    @Override
+    public String toString() {
+        return "{TableNo='" + getTableNo() + "', DishName='" + getDishName()
+                + "', Quantity='" + getQuantity() + "',OrderStatus='"
+                + OrderStatus.COOKED + "',Unit Price='" + getUnitPrice() + "'}";
+    }
 
+    public static OrderStatus castObject(String str) {
+        if (str.trim().equals(OrderStatus.CANCELLED.toString())) {
+            return OrderStatus.CANCELLED;
+        }
+        if (str.trim().equals(OrderStatus.COOKED.toString())) {
+            return OrderStatus.COOKED;
+        }
+        if (str.trim().equals(OrderStatus.COOKING.toString())) {
+            return OrderStatus.COOKING;
+        }
+        if (str.trim().equals(OrderStatus.DELIVERED.toString())) {
+            return OrderStatus.DELIVERED;
+        }
+        if (str.trim().equals(OrderStatus.ONBILL.toString())) {
+            return OrderStatus.ONBILL;
+        }
+        if (str.trim().equals(OrderStatus.ORDER_IN.toString())) {
+            return OrderStatus.ORDER_IN;
+        }
+        if (str.trim().equals(OrderStatus.PAID.toString())) {
+            return OrderStatus.PAID;
+        }
+        if (str.trim().equals(OrderStatus.CANCELLED.toString())) {
+            return OrderStatus.CANCELLED;
+        } else
+            return null;
+    }
 }

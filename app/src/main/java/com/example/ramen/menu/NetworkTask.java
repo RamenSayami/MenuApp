@@ -4,12 +4,10 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.ramen.menu.Model.Order;
-import com.example.ramen.menu.Model.SocketProperties;
+import com.example.ramen.menu.Model.StaticProperties;
 
-import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OptionalDataException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
@@ -22,49 +20,13 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
         public NetworkTask(){
 
         }
-        @Override
-        protected void onPreExecute() {
-//            Log.i("AsyncTask", "onPreExecute");
-//            try {
-//                SocketAddress sockaddr = new InetSocketAddress(SocketProperties.getIpAddress(), SocketProperties.getPortNumber());
-//                nSocket = new Socket();
-//                nSocket.connect(sockaddr, 5000);
-//                if (nSocket.isConnected()) {
-//                    Log.i("Socket info", "Client Connected");
-//
-//                    nis = (ObjectInputStream) nSocket.getInputStream();
-//                    nos = (ObjectOutputStream) nSocket.getOutputStream();
-//                }
-//                else {
-//                    Log.i("Socket info", "Client not Connected");
-//                }
-//            } catch (Exception e) {
-//
-//                e.printStackTrace();
-//            }
-        }
-
 
         @Override
         protected Void doInBackground(Void... params) {
-//            boolean connection = false;
-
-//            try {
-//                if(nis.available()>0){
-//
-//                        Order msg = (Order) nis.readObject();
-//                        publishProgress(msg);
-//                        Log.i("Object Recieved",msg.toString());
-//
-//                }
-//            } catch (IOException | ClassNotFoundException e) {
-//                e.printStackTrace();
-//            }
-//
-//            return null;
-            Log.i("AsyncTask", "onPreExecute");
+            Log.i("AsyncTask", "Setup Connection");
             try {
-                SocketAddress sockaddr = new InetSocketAddress(SocketProperties.getIpAddress(), SocketProperties.getPortNumber());
+                Log.i("Socket",""+StaticProperties.getIpAddress());
+                SocketAddress sockaddr = new InetSocketAddress(StaticProperties.getIpAddress(), StaticProperties.getPortNumber());
                 nSocket = new Socket();
                 nSocket.connect(sockaddr, 5000);
                 Log.i("info ", "AsyncTask running socket connection");
@@ -72,8 +34,9 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
                 if (nSocket.isConnected()) {
                     Log.i("Socket info", "Client Connected");
 
-                    nis = (ObjectInputStream) nSocket.getInputStream();
-                    nos = (ObjectOutputStream) nSocket.getOutputStream();
+                    nis =new ObjectInputStream(nSocket.getInputStream());
+                    nos = new ObjectOutputStream(nSocket.getOutputStream());
+                    nos.flush();
                 }
                 else {
                     Log.i("Socket info", "Client not Connected");
@@ -90,7 +53,6 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
                     Order msg = (Order) nis.readObject();
 
                 } catch (Exception e) {
-//                    e.printStackTrace();
                 }
             }
         }
@@ -111,6 +73,7 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
                 }
             } catch (Exception e) {
                 Log.i("AsyncTask", "SendDataToNetwork: Message send failed. Caught an exception");
+                e.printStackTrace();
             }
         }
     }

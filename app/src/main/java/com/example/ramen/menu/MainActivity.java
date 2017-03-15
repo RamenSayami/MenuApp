@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.ramen.menu.Model.MenuItems;
 import com.example.ramen.menu.Model.Order;
+import com.example.ramen.menu.Model.StaticProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"Socket Setting in the making", Toast.LENGTH_SHORT).show();
 //                Intent i = new Intent(getApplicationContext(),SocketSettingActivity.class);
 //                startActivity(i);
-
                 return true;
 
             case R.id.info:
@@ -100,5 +100,11 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        StaticProperties.getNetworkTask().cancel(true);
+        super.onDestroy();
     }
 }

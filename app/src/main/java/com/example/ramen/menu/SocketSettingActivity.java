@@ -1,6 +1,5 @@
 package com.example.ramen.menu;
 
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,7 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ramen.menu.Model.SocketProperties;
+import com.example.ramen.menu.Model.StaticProperties;
 
 public class SocketSettingActivity extends AppCompatActivity {
 
@@ -28,8 +27,8 @@ public class SocketSettingActivity extends AppCompatActivity {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SocketProperties.setIpAddress(ipAddressText.getText().toString());
-                SocketProperties.setPortNumber(Integer.parseInt(portText.getText().toString()));
+                StaticProperties.setIpAddress(ipAddressText.getText().toString());
+                StaticProperties.setPortNumber(Integer.parseInt(portText.getText().toString()));
                 Toast.makeText(getApplicationContext(),"Socket Settings Changed",Toast.LENGTH_SHORT);
             }
         });
