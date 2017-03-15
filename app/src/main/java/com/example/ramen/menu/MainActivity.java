@@ -1,5 +1,6 @@
 package com.example.ramen.menu;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -53,11 +54,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void prepareMenuData() {
 
-        menuList.add(new MenuItems("Chicken Roast", 200, R.drawable.chicken_roast,5));
-        menuList.add(new MenuItems("Chowmin", 120, R.drawable.chowmin,5));
+        menuList.add(new MenuItems("Chicken Roast", 200, R.drawable.chicken_roast,3));
         menuList.add(new MenuItems("Fried Rice", 140, R.drawable.friedrice,5));
-        menuList.add(new MenuItems("Momo", 200, R.drawable.momo,5));
-        menuList.add(new MenuItems("Sizzler", 200, R.drawable.sizzler,5));
+        menuList.add(new MenuItems("Buff Momo", 200, R.drawable.momo,5));
+        menuList.add(new MenuItems("Buff Sizzler", 200, R.drawable.sizzler_sizzler,3));
+        menuList.add(new MenuItems("Chicken Chow mein", 350, R.drawable.recipechicken_chow_mein,3));
+        menuList.add(new MenuItems("Chicken Momo", 180, R.drawable.chicken_momo,3));
+
+        menuList.add(new MenuItems("Fried Momo", 350, R.drawable.friedmomo,3));
+        menuList.add(new MenuItems("Coke", 70, R.drawable.coke,3));
+
+
+//        menuList.add(new MenuItems("Tuborg Beer", 350, R.drawable.tuborg,3));
+        menuList.add(new MenuItems("Carlsberg Beer", 350, R.drawable.carlsberg,3));
+
+
         mAdapter.notifyDataSetChanged();
     }
 
@@ -71,7 +82,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.settings:
-                Toast.makeText(getApplicationContext(),"Socket Setting in process", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Socket Setting in the making", Toast.LENGTH_SHORT).show();
+//                Intent i = new Intent(getApplicationContext(),SocketSettingActivity.class);
+//                startActivity(i);
 
                 return true;
 

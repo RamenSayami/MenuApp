@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.ramen.menu.Model.MenuItems;
 import com.example.ramen.menu.Model.Order;
+import com.example.ramen.menu.Model.SocketProperties;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
     private List<MenuItems> menuList;
     public MyClicks mClicks;
     private Context context;
-
+    private SocketProperties socketProperties;
     /**
      * A viewHolder for the
      * **/
@@ -111,8 +112,9 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.MyViewHolder> 
             public void clickOnRow(View info, int pos) {
                 MenuItems menuItem = menuList.get(pos);
 //                Toast.makeText(context,"Clicked"+ menuItem.getDishName(), Toast.LENGTH_SHORT).show();
+                Order order = new Order(menuItem.getDishName(),1, Order.OrderStatus.ORDER_IN,menuItem.getUnitPrice());
 
-
+                socketProperties.sendOrder(order);
                 Toast.makeText(context,"Table No:"+Order.getTableNo()+" Clicked" + menuItem.getDishName(),Toast.LENGTH_SHORT).show();
                 //TODO 1: show a dialog box and ask for quantity
                 //TODO 2: Make one Order Object with the required details

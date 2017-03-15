@@ -6,6 +6,10 @@ package com.example.ramen.menu.Model;
 
 public class Order {
 
+    public enum OrderStatus {
+        ORDER_IN, CANCELLED,UNCOOKED, COOKING, COOKED, DELIVERED, ONBILL, PAID
+    }
+
     //private String SessionId;
     private static Integer TableNo;  //Table number made static because once the user
                                     // enters table number it will not change fot the entire session
