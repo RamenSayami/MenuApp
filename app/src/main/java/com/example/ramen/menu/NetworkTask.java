@@ -19,26 +19,29 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
         ObjectInputStream nis;
         ObjectOutputStream nos;
 
+        public NetworkTask(){
+
+        }
         @Override
         protected void onPreExecute() {
-            Log.i("AsyncTask", "onPreExecute");
-            try {
-                SocketAddress sockaddr = new InetSocketAddress(SocketProperties.getIpAddress(), SocketProperties.getPortNumber());
-                nSocket = new Socket();
-                nSocket.connect(sockaddr, 5000);
-                if (nSocket.isConnected()) {
-                    Log.i("Socket info", "Client Connected");
-
-                    nis = (ObjectInputStream) nSocket.getInputStream();
-                    nos = (ObjectOutputStream) nSocket.getOutputStream();
-                }
-                else {
-                    Log.i("Socket info", "Client not Connected");
-                }
-            } catch (Exception e) {
-
-                e.printStackTrace();
-            }
+//            Log.i("AsyncTask", "onPreExecute");
+//            try {
+//                SocketAddress sockaddr = new InetSocketAddress(SocketProperties.getIpAddress(), SocketProperties.getPortNumber());
+//                nSocket = new Socket();
+//                nSocket.connect(sockaddr, 5000);
+//                if (nSocket.isConnected()) {
+//                    Log.i("Socket info", "Client Connected");
+//
+//                    nis = (ObjectInputStream) nSocket.getInputStream();
+//                    nos = (ObjectOutputStream) nSocket.getOutputStream();
+//                }
+//                else {
+//                    Log.i("Socket info", "Client not Connected");
+//                }
+//            } catch (Exception e) {
+//
+//                e.printStackTrace();
+//            }
         }
 
 
@@ -59,20 +62,35 @@ public class NetworkTask extends AsyncTask<Void, Order, Void> {
 //            }
 //
 //            return null;
+            Log.i("AsyncTask", "onPreExecute");
+            try {
+                SocketAddress sockaddr = new InetSocketAddress(SocketProperties.getIpAddress(), SocketProperties.getPortNumber());
+                nSocket = new Socket();
+                nSocket.connect(sockaddr, 5000);
+                Log.i("info ", "AsyncTask running socket connection");
+
+                if (nSocket.isConnected()) {
+                    Log.i("Socket info", "Client Connected");
+
+                    nis = (ObjectInputStream) nSocket.getInputStream();
+                    nos = (ObjectOutputStream) nSocket.getOutputStream();
+                }
+                else {
+                    Log.i("Socket info", "Client not Connected");
+                }
+            } catch (Exception e) {
+
+                e.printStackTrace();
+            }
+
+            Log.i("info ", "Background running");
 
             while(true){
-                try {
-                    if(nSocket.isConnected()&&nis.available()<0){
-                        continue;
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
                 try {
                     Order msg = (Order) nis.readObject();
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
                 }
             }
         }

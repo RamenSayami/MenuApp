@@ -64,6 +64,7 @@ public class AskTableActivity extends AppCompatActivity {
                     SocketProperties.setPortNumber((Integer) Integer.parseInt(port.getText().toString()));
                     Log.i("info", "" + ip.getText().toString().trim() + "port: " + (Integer) Integer.parseInt(port.getText().toString()));
                     try {
+
 //                            client = new SocketClient();
 //                            SocketProperties.setClient(client);
 //                            clientThread = new Thread(client);
