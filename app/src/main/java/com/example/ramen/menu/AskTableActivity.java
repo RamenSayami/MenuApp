@@ -36,6 +36,8 @@ public class AskTableActivity extends AppCompatActivity {
         port = (EditText) findViewById(R.id.portText);
         order = new Order();
 
+        autoConnect();
+
 
 
         tableButton.setOnClickListener(new View.OnClickListener() {
@@ -63,5 +65,10 @@ public class AskTableActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void autoConnect(){
+
+        //TODO autoconnect
     }
 }
